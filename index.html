@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANDO Gimnasio - Fitness & Entrenamiento</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary: #AEF359; /* Lime Green */
+            --secondary: #E5E7EB; /* Light Gray */
+            --dark: #111111;
+            --light: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Modern Gradient Background */
+        .modern-bg {
+            background-color: var(--dark);
+            position: relative;
+        }
+        
+        .modern-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(174, 243, 89, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(174, 243, 89, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Animated Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: floatUp 20s infinite linear;
+            pointer-events: none;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+        
+        /* Accent Text Effect */
+        .accent-text {
+            color: var(--primary);
+        }
+        
+        .accent-glow {
+            text-shadow: 
+                0 0 10px rgba(174, 243, 89, 0.5),
+                0 0 20px rgba(174, 243, 89, 0.3);
+        }
+        
+        /* Modern Glass Effect */
+        .modern-glass {
+            background: rgba(30, 30, 30, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Modern Button */
+        .modern-btn {
+            background-color: var(--primary);
+            color: var(--dark);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(174, 243, 89, 0.2);
+        }
+        
+        .modern-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(174, 243, 89, 0.4);
+        }
+
+        .modern-btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .modern-btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Modern Card */
+        .modern-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(174, 243, 89, 0.4);
+        }
+        
+        /* Modern Counter */
+        .modern-counter {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 5px;
+        }
+        
+        /* Loading Animation */
+        .modern-loader {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(174, 243, 89, 0.3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* --- Chatbot Styles --- */
+        #chatbot-icon {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 4rem;
+            height: 4rem;
+            background-color: var(--primary);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(174, 243, 89, 0.4);
+            transition: transform 0.3s ease;
+        }
+        #chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+
+        #chat-window {
+            position: fixed;
+            bottom: 7rem;
+            right: 2rem;
+            width: clamp(300px, 90vw, 400px);
+            height: 60vh;
+            max-height: 700px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat-window.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .chat-header {
+            background-color: var(--primary);
+            color: var(--dark);
+            padding: 1rem;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            max-width: 85%;
+        }
+
+        .chat-message.bot {
+            align-items: flex-start;
+        }
+
+        .chat-message.user {
+            align-items: flex-end;
+            align-self: flex-end;
+        }
+
+        .chat-message .bubble {
+            padding: 0.75rem 1rem;
+            border-radius: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .chat-message.bot .bubble {
+            background-color: #333;
+            color: var(--light);
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        .chat-message.user .bubble {
+            background-color: var(--primary);
+            color: var(--dark);
+            border-bottom-right-radius: 0.25rem;
+        }
+        
+        #chat-options {
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-option-btn {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-size: 0.875rem;
+        }
+        
+        .chat-option-btn:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+        
+    </style>
+</head>
+<body class="modern-bg">
+    <!-- Animated Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 modern-glass transition-all duration-500" id="navbar">
+        <div class="container mx-auto px-4 sm:px-8 py-3 sm:py-4">
+            <div class="flex items-center justify-between">
+                <a href="#home" class="flex items-center">
+                    <img src="https://res.cloudinary.com/dgyjeotoa/image/upload/v1757533188/logo_fmxblg.png" alt="SANDO Gimnasio Logo" class="h-10 sm:h-12 mr-4">
+                    <h1 class="poppins text-xl sm:text-2xl font-bold text-white hidden sm:block">SANDO GIMNASIO</h1>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-10">
+                    <a href="#home" class="text-gray-300 hover:text-primary transition-all duration-300 relative group">Inicio<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#services" class="text-gray-300 hover:text-primary transition-all duration-300 relative group">Servicios<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#about" class="text-gray-300 hover:text-primary transition-all duration-300 relative group">Nosotros<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#testimonials" class="text-gray-300 hover:text-primary transition-all duration-300 relative group">Testimonios<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="#contact" class="text-gray-300 hover:text-primary transition-all duration-300 relative group">Contacto<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
+                </div>
+                
+                <button class="md:hidden text-3xl text-primary" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-dark bg-opacity-95 z-40 hidden" id="mobileMenu">
+        <div class="flex flex-col items-center justify-center h-full space-y-10 text-3xl">
+            <a href="#home" class="mobile-link text-gray-300 hover:text-primary transition-colors">Inicio</a>
+            <a href="#services" class="mobile-link text-gray-300 hover:text-primary transition-colors">Servicios</a>
+            <a href="#about" class="mobile-link text-gray-300 hover:text-primary transition-colors">Nosotros</a>
+            <a href="#testimonials" class="mobile-link text-gray-300 hover:text-primary transition-colors">Testimonios</a>
+            <a href="#contact" class="mobile-link text-gray-300 hover:text-primary transition-colors">Contacto</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden" style="position: relative; z-index: 1;">
+        <div class="container mx-auto px-4 sm:px-8 z-10 text-center md:text-left">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right" data-aos-duration="1500">
+                    <h2 class="text-5xl sm:text-6xl md:text-8xl font-black mb-8 poppins leading-tight">
+                        ENTRENÁ.<br> <span class="accent-text accent-glow">SUPERATE.</span>
+                    </h2>
+                    <p class="text-xl md:text-2xl mb-12 text-gray-300 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                        Alcanzá tu mejor versión en un espacio con equipamiento moderno y la mejor energía. Tu objetivo es nuestro compromiso.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start" data-aos="fade-up" data-aos-delay="800">
+                        <a href="https://wa.me/message/6VEZ7P5OXAR4L1" target="_blank" rel="noopener noreferrer" class="modern-btn px-10 py-5 rounded-full text-lg font-bold tracking-wider text-center">
+                            <i class="fas fa-arrow-right mr-3"></i>EMPEZÁ HOY
+                        </a>
+                        <a href="https://wa.me/message/6VEZ7P5OXAR4L1" target="_blank" rel="noopener noreferrer" class="modern-btn-outline px-10 py-5 rounded-full text-lg font-bold tracking-wider text-center">
+                            <i class="fab fa-whatsapp mr-3"></i>CONSULTANOS
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative hidden md:block" data-aos="fade-left" data-aos-duration="1500">
+                    <div class="relative group">
+                        <video autoplay loop muted playsinline class="rounded-3xl floating shadow-2xl w-full h-auto">
+                            <source src="https://res.cloudinary.com/dgyjeotoa/video/upload/v1757533193/mp4_wwsl6f.mp4" type="video/mp4">
+                            Tu navegador no soporta el video.
+                        </video>
+                        <div class="absolute -bottom-8 -left-8 modern-glass p-8 rounded-2xl shadow-2xl">
+                            <div class="flex items-center space-x-6">
+                                <div class="text-5xl text-primary">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-bold modern-counter" data-target="100">0</p>
+                                    <p class="text-sm text-gray-400 uppercase tracking-wider">% Compromiso</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <a href="#stats" aria-label="Scroll down">
+                <i class="fas fa-chevron-down text-3xl text-primary"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section id="stats" class="py-20 md:py-24 modern-glass" style="position: relative; z-index: 1;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-6xl mb-6 text-primary"><i class="fas fa-users"></i></div>
+                    <p class="modern-counter mb-3" data-target="500">0</p>
+                    <p class="text-gray-400 uppercase tracking-wider text-sm">Miembros Activos</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-6xl mb-6 text-primary"><i class="fas fa-dumbbell"></i></div>
+                    <p class="modern-counter mb-3" data-target="150">0</p>
+                    <p class="text-gray-400 uppercase tracking-wider text-sm">Equipos Modernos</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-6xl mb-6 text-primary"><i class="fas fa-running"></i></div>
+                    <p class="modern-counter mb-3" data-target="20">0</p>
+                    <p class="text-gray-400 uppercase tracking-wider text-sm">Clases Semanales</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="400">
+                    <div class="text-6xl mb-6 text-primary"><i class="fas fa-star"></i></div>
+                    <p class="modern-counter mb-3" data-target="4.9">0.0</p>
+                    <p class="text-gray-400 uppercase tracking-wider text-sm">Calificación</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gemini AI Feature Section -->
+    <section id="gemini-feature" class="py-20 md:py-24" style="position: relative; z-index: 1; background-color: #1a1a1a;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl text-center sm:text-5xl md:text-6xl font-black mb-6 poppins accent-text accent-glow">Tu Rutina Personalizada con IA</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">Describí tu objetivo y nuestra IA, con tecnología de Gemini, creará un plan de 3 días para vos.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto" data-aos="fade-up">
+                <div class="modern-glass p-8 sm:p-12 rounded-3xl shadow-2xl">
+                    <form id="gemini-form" class="flex flex-col sm:flex-row items-center gap-4">
+                        <input type="text" id="goal-input" placeholder="Ej: Aumentar masa muscular en el tren superior" class="w-full px-6 py-4 bg-transparent border-2 border-gray-700 rounded-full focus:border-primary focus:outline-none transition-all duration-300 text-lg" required>
+                        <button type="submit" id="generate-btn" class="w-full sm:w-auto modern-btn px-8 py-4 rounded-full text-lg font-bold tracking-wider flex items-center justify-center space-x-3 shrink-0">
+                            <span>Generar</span>
+                            <i class="fas fa-cogs"></i>
+                        </button>
+                    </form>
+                    <div id="gemini-loader" class="text-center py-8 hidden">
+                        <div class="modern-loader mx-auto"></div>
+                        <p class="mt-4 text-gray-400">Generando tu rutina... Esto puede tardar unos segundos.</p>
+                    </div>
+                    <div id="routine-result" class="mt-8 text-gray-300 prose prose-invert max-w-none prose-headings:text-primary prose-h3:poppins prose-h3:font-bold prose-h4:text-gray-200 prose-li:marker:text-primary">
+                        <!-- AI Generated routine will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 md:py-24" style="position: relative; z-index: 1;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl text-center sm:text-5xl md:text-6xl font-black mb-6 poppins accent-text accent-glow">Nuestras Áreas</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">Todo lo que necesitás para un entrenamiento completo y efectivo.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="modern-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-6xl text-primary mb-8"><i class="fas fa-heartbeat"></i></div>
+                    <h3 class="text-3xl font-bold mb-6 poppins">Zona Cardio</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Equipamiento de última generación para mejorar tu resistencia y salud cardiovascular.</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><i class="fas fa-check text-primary mr-3"></i>Cintas para correr</li>
+                        <li><i class="fas fa-check text-primary mr-3"></i>Bicicletas fijas y spinning</li>
+                        <li><i class="fas fa-check text-primary mr-3"></i>Elípticos y escaladores</li>
+                    </ul>
+                </div>
+                
+                <div class="modern-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-6xl text-primary mb-8"><i class="fas fa-weight-hanging"></i></div>
+                    <h3 class="text-3xl font-bold mb-6 poppins">Musculación</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Un área completa de pesos libres y máquinas para desarrollar tu fuerza y tonificar.</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><i class="fas fa-check text-primary mr-3"></i>Mancuernas y barras</li>
+                        <li><i class="fas fa-check text-primary mr-3"></i>Máquinas de precisión</li>
+                        <li><i class="fas fa-check text-primary mr-3"></i>Bancos y racks</li>
+                    </ul>
+                </div>
+                
+                <div class="modern-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-6xl text-primary mb-8"><i class="fas fa-users"></i></div>
+                    <h3 class="text-3xl font-bold mb-6 poppins">Clases Grupales</h3>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Entrená en grupo, divertite y motivate con nuestras clases de funcional, HIIT y más.</p>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><i class="fas fa-check text-primary mr-3"></i>Entrenamiento Funcional</li>
+                        <li><i class="fas fa-check text-primary mr-3"></i>Clases de alta intensidad (HIIT)</li>
+                        <li><i class="fas fa-check text-primary mr-3"></i>Entrenadores certificados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Us Section -->
+    <section id="about" class="py-20 md:py-24" style="position: relative; z-index: 1; background-color: #1a1a1a;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl text-center sm:text-5xl md:text-6xl font-black mb-6 poppins accent-text accent-glow">Nuestra Filosofía</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">Creemos en el poder de la constancia y la comunidad.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://res.cloudinary.com/dgyjeotoa/image/upload/v1757533188/Captura_de_pantalla_2025-09-10_163901_dumfik.png" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/111111/AEF359?text=Imagen+No+Disponible';"
+                         alt="Filosofía SANDO" class="rounded-3xl shadow-2xl">
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-4xl font-bold mb-8 poppins">Más que un Gimnasio</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed text-lg">
+                        SANDO nació en Necochea con un objetivo claro: crear un espacio donde todos se sientan bienvenidos y motivados para alcanzar sus metas. No se trata solo de levantar pesas, se trata de construir una comunidad saludable, fuerte y unida.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed text-lg">
+                        Invertimos en equipos de calidad y en un ambiente limpio y ordenado para que tu única preocupación sea dar lo mejor de vos en cada entrenamiento.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 md:py-24" style="position: relative; z-index: 1;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl text-center sm:text-5xl md:text-6xl font-black mb-6 poppins accent-text accent-glow">¿Qué dicen nuestros socios?</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">La experiencia de quienes nos eligen cada día.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="modern-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-8">
+                        <img src="https://placehold.co/80x80/111111/AEF359?text=M" onerror="this.onerror=null;this.src='https://placehold.co/80x80/111111/AEF359?text=User';" alt="Socio" class="w-20 h-20 rounded-full mr-6 border-4 border-primary border-opacity-50">
+                        <div>
+                            <h4 class="text-2xl font-bold poppins">Mariquita S.</h4>
+                            <div class="text-primary text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-lg leading-relaxed">"El mejor gimnasio sin dudas. El lugar, inmaculado. Prolijo. Impecable. De otro nivel. Máquinas nuevas, actuales. Los profes, los mejores. ¡No lo cambio jamás!"</p>
+                </div>
+                
+                <div class="modern-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-8">
+                        <img src="https://placehold.co/80x80/111111/AEF359?text=D" onerror="this.onerror=null;this.src='https://placehold.co/80x80/111111/AEF359?text=User';" alt="Socio" class="w-20 h-20 rounded-full mr-6 border-4 border-primary border-opacity-50">
+                        <div>
+                            <h4 class="text-2xl font-bold poppins">Daniela T.</h4>
+                            <div class="text-primary text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-lg leading-relaxed">"Lo dice una persona que odiaba hacer actividad física y ahora lo ama. Los profes son los mejores, súper motivadores y siempre con buena onda. ¡Súper recomendado!"</p>
+                </div>
+                
+                <div class="modern-card p-10 rounded-3xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-8">
+                        <img src="https://placehold.co/80x80/111111/AEF359?text=L" onerror="this.onerror=null;this.src='https://placehold.co/80x80/111111/AEF359?text=User';" alt="Socia" class="w-20 h-20 rounded-full mr-6 border-4 border-primary border-opacity-50">
+                        <div>
+                            <h4 class="text-2xl font-bold poppins">Laura I.</h4>
+                            <div class="text-primary text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic text-lg leading-relaxed">"¡El gimnasio con la mejor energía y buena onda! Todos los profes y gente que trabaja ahí siempre te tratan bien, explican los ejercicios y ayudan. ¡Lo recomiendo!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-24" style="position: relative; z-index: 1;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="text-4xl text-center sm:text-5xl md:text-6xl font-black mb-6 poppins accent-text accent-glow">Contactanos</h2>
+                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">¿Listo para empezar a entrenar?</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-16">
+                    <div data-aos="fade-right">
+                        <div class="modern-glass p-8 sm:p-12 rounded-3xl shadow-2xl h-full flex flex-col">
+                            <h3 class="text-3xl font-bold mb-10 poppins accent-text">Nuestra Ubicación y Horarios</h3>
+                            <div class="space-y-8">
+                                <div class="flex items-start">
+                                    <div class="w-16 h-16 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-6 shrink-0"><i class="fas fa-map-marker-alt text-primary text-2xl"></i></div>
+                                    <div>
+                                        <p class="text-xl font-semibold">Dirección</p>
+                                        <p class="text-gray-400">Calle 74 N° 3724, Necochea, Bs. As.</p>
+                                    </div>
+                                </div>
+                                <a href="https://wa.me/message/6VEZ7P5OXAR4L1" target="_blank" rel="noopener noreferrer" class="flex items-center group">
+                                    <div class="w-16 h-16 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fab fa-whatsapp text-primary text-2xl"></i></div>
+                                    <div>
+                                        <p class="text-xl font-semibold group-hover:text-primary transition-colors">WhatsApp</p>
+                                        <p class="text-gray-400">+54 9 2262 12-3456</p>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/sandogimnasio" target="_blank" rel="noopener noreferrer" class="flex items-center group">
+                                    <div class="w-16 h-16 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-6 group-hover:scale-110 transition-transform"><i class="fab fa-instagram text-primary text-2xl"></i></div>
+                                    <div>
+                                        <p class="text-xl font-semibold group-hover:text-primary transition-colors">Instagram</p>
+                                        <p class="text-gray-400">@sandogimnasio</p>
+                                    </div>
+                                </a>
+                                <div class="flex items-start">
+                                    <div class="w-16 h-16 rounded-full bg-black bg-opacity-30 flex items-center justify-center mr-6 shrink-0"><i class="fas fa-clock text-primary text-2xl"></i></div>
+                                    <div>
+                                        <p class="text-xl font-semibold">Nuestros Horarios</p>
+                                        <div class="mt-2">
+                                            <p class="text-gray-300"><span class="font-semibold text-primary">Invierno ❄️</span></p>
+                                            <p class="text-gray-400 ml-4">L a V: 7 a 22hs</p>
+                                            <p class="text-gray-400 ml-4">Sábados: 9 a 12hs / 18 a 20hs</p>
+                                        </div>
+                                        <div class="mt-4">
+                                            <p class="text-gray-300"><span class="font-semibold text-primary">Verano 🌸</span></p>
+                                            <p class="text-gray-400 ml-4">L a V: 6 a 13hs y 17 a 23hs</p>
+                                            <p class="text-gray-400 ml-4">Sábados: 9 a 12hs / 19 a 21hs</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-8 flex-grow">
+                                <iframe 
+                                    class="w-full h-full min-h-[300px] rounded-2xl"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.903517409244!2d-58.7524451!3d-38.571945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x958fbd0a70d8a59f%3A0x6b3b5e4d8c6b9b3!2sC.%2074%203724%2C%20B7630BWH%20Necochea%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1721859685012!5m2!1ses!2sar" 
+                                    style="border:0; filter: invert(90%) grayscale(80%);" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div data-aos="fade-left">
+                        <form class="modern-glass p-8 sm:p-12 rounded-3xl shadow-2xl" id="contactForm">
+                            <h3 class="text-3xl font-bold mb-10 poppins accent-text">Envianos tu Consulta</h3>
+                            <div class="space-y-6">
+                                <input required id="form-name" type="text" placeholder="Nombre Completo" class="w-full px-6 py-4 bg-transparent border-2 border-gray-700 rounded-2xl focus:border-primary focus:outline-none transition-all duration-300 text-lg">
+                                <input required id="form-email" type="email" placeholder="Correo Electrónico" class="w-full px-6 py-4 bg-transparent border-2 border-gray-700 rounded-2xl focus:border-primary focus:outline-none transition-all duration-300 text-lg">
+                                <textarea required id="form-message" placeholder="Tu Mensaje" rows="5" class="w-full px-6 py-4 bg-transparent border-2 border-gray-700 rounded-2xl focus:border-primary focus:outline-none transition-all duration-300 resize-none text-lg"></textarea>
+                                <button type="submit" class="w-full py-5 rounded-2xl modern-btn text-lg font-bold tracking-wider">
+                                    <i class="fab fa-whatsapp mr-3"></i>ENVIAR POR WHATSAPP
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="modern-glass py-8 mt-20 border-t border-gray-800" style="position: relative; z-index: 1;">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center space-x-4 mb-6 md:mb-0">
+                    <img src="https://res.cloudinary.com/dgyjeotoa/image/upload/v1757533188/logo_fmxblg.png" alt="SANDO Gimnasio Logo" class="h-10">
+                    <h3 class="poppins text-xl font-bold text-white hidden sm:block">SANDO GIMNASIO</h3>
+                </div>
+                <p class="text-gray-400 text-center mb-6 md:mb-0">© 2024 SANDO Gimnasio. Necochea, Buenos Aires.</p>
+                <div class="flex space-x-6">
+                    <a href="https://wa.me/message/6VEZ7P5OXAR4L1" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors text-2xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/sandogimnasio" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary transition-colors text-2xl"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-14 h-14 bg-primary rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-500 hover:scale-110 shadow-2xl z-50">
+        <i class="fas fa-arrow-up text-dark text-xl"></i>
+    </button>
+
+    <!-- Chatbot -->
+    <div id="chatbot-icon">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <div id="chat-window" class="modern-glass rounded-3xl shadow-2xl">
+        <div class="chat-header">
+            <div>
+                <h3 class="font-bold text-lg poppins">Asistente Virtual</h3>
+                <p class="text-sm opacity-80">SANDO Gimnasio</p>
+            </div>
+            <button id="close-chat" class="text-2xl">&times;</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be injected here -->
+        </div>
+        <div id="chat-options">
+            <!-- Options will be injected here -->
+        </div>
+    </div>
+
+
+    <!-- Custom Alert Modal -->
+    <div id="customAlert" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300 pointer-events-none">
+        <div class="modern-card p-8 rounded-2xl text-center max-w-sm mx-4 transform scale-90 transition-transform duration-300">
+            <div class="text-5xl text-primary mb-4"><i class="fas fa-check-circle"></i></div>
+            <p id="customAlertMessage" class="text-xl text-white">Message here</p>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        AOS.init({ duration: 1200, once: true, offset: 100 });
+        
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 3 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 20}s`;
+            particle.style.animationDuration = `${Math.random() * 20 + 15}s`;
+            particlesContainer.appendChild(particle);
+        }
+        
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) navbar.classList.add('bg-dark/80');
+            else navbar.classList.remove('bg-dark/80');
+            
+            const backToTopBtn = document.getElementById('backToTop');
+            if (window.scrollY > 300) backToTopBtn.classList.remove('opacity-0', 'invisible');
+            else backToTopBtn.classList.add('opacity-0', 'invisible');
+        });
+
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        const counters = document.querySelectorAll('.modern-counter');
+        const countUp = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const isFloat = target.toString().includes('.');
+            const updateCount = () => {
+                const count = +counter.innerText;
+                const increment = target / 100;
+                if (count < target) {
+                    let newValue = count + increment;
+                    counter.innerText = isFloat ? newValue.toFixed(1) : Math.ceil(newValue);
+                    setTimeout(updateCount, 20);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        };
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    countUp(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => counterObserver.observe(counter));
+        
+        const customAlert = document.getElementById('customAlert');
+        const customAlertMessage = document.getElementById('customAlertMessage');
+        const alertModalContent = customAlert.querySelector('div');
+        function showAlert(message) {
+            customAlertMessage.textContent = message;
+            customAlert.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
+            alertModalContent.classList.remove('scale-90');
+            setTimeout(() => {
+                customAlert.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                alertModalContent.classList.add('scale-90');
+            }, 3000);
+        }
+
+        const form = document.getElementById('contactForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            const name = document.getElementById('form-name').value;
+            const message = document.getElementById('form-message').value;
+            
+            const whatsappMessage = `Hola SANDO Gimnasio, mi nombre es ${name}. Quería consultar lo siguiente: ${message}`;
+            const whatsappUrl = `https://wa.me/message/6VEZ7P5OXAR4L1/?text=${encodeURIComponent(whatsappMessage)}`;
+
+            window.open(whatsappUrl, '_blank');
+            
+            showAlert('Redirigiendo a WhatsApp...');
+            form.reset();
+        });
+
+        // --- Chatbot Logic ---
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChatBtn = document.getElementById('close-chat');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatOptions = document.getElementById('chat-options');
+
+        const botResponses = {
+            "gemini_rutina": '¡Claro! Dirígete a nuestra sección de "Tu Rutina con IA" para crear un plan de entrenamiento personalizado. <a href="#gemini-feature" class="font-bold underline hover:text-primary" id="goto-gemini">¡Llévame allí!</a>',
+            "vigencia": "El abono tiene una vigencia de 30 días.",
+            "horarios": "Sí, podés manejar tus horarios como prefieras dentro de nuestro horario de atención.",
+            "respetar_abono": "Sí, es fundamental respetar el abono que hayas adquirido para asegurar el acceso a las áreas y clases correspondientes.",
+            "buena_onda": "¡Claro! Es requisito fundamental venir siempre con muuucha buena onda. ¡La energía la construimos entre todos! 😄",
+            "contacto": 'Claro, podés enviarnos un mensaje por <a href="https://wa.me/message/6VEZ7P5OXAR4L1" target="_blank" class="font-bold underline hover:text-primary">WhatsApp</a> y te responderemos a la brevedad.'
+        };
+
+        const initialQuestions = [
+            { text: "Crear rutina con IA", key: "gemini_rutina" },
+            { text: "¿Vigencia del abono?", key: "vigencia" },
+            { text: "¿Puedo manejar mis horarios?", key: "horarios" },
+            { text: "¿Hay que respetar el abono?", key: "respetar_abono" },
+            { text: "¿Algo más que deba saber?", key: "buena_onda" },
+            { text: "Contacto", key: "contacto" },
+        ];
+        
+        const addMessage = (sender, text) => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.innerHTML = text; // Use innerHTML to allow links
+
+            // Special handler for the gemini link
+            const geminiLink = bubble.querySelector('#goto-gemini');
+            if(geminiLink){
+                geminiLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(geminiLink.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                    chatWindow.classList.remove('visible');
+                });
+            }
+            
+            messageElement.appendChild(bubble);
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+        
+        const showOptions = (options) => {
+            chatOptions.innerHTML = '';
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.classList.add('chat-option-btn');
+                button.textContent = option.text;
+                button.dataset.key = option.key;
+                button.addEventListener('click', handleOptionClick);
+                chatOptions.appendChild(button);
+            });
+        };
+
+        function handleOptionClick(e) {
+            const key = e.target.dataset.key;
+            const userText = e.target.textContent;
+
+            addMessage('user', userText);
+
+            setTimeout(() => {
+                addMessage('bot', botResponses[key]);
+            }, 500);
+        }
+
+        const startChat = () => {
+            chatMessages.innerHTML = '';
+            addMessage('bot', '¡Hola! 👋 Soy el asistente virtual de SANDO. ¿Cómo puedo ayudarte?');
+            showOptions(initialQuestions);
+        };
+        
+        chatbotIcon.addEventListener('click', () => {
+            chatWindow.classList.toggle('visible');
+            if (chatWindow.classList.contains('visible')) {
+                startChat();
+            }
+        });
+
+        closeChatBtn.addEventListener('click', () => {
+            chatWindow.classList.remove('visible');
+        });
+
+        // --- Gemini AI Logic ---
+        const geminiForm = document.getElementById('gemini-form');
+        const goalInput = document.getElementById('goal-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const geminiLoader = document.getElementById('gemini-loader');
+        const routineResult = document.getElementById('routine-result');
+
+        geminiForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userGoal = goalInput.value;
+            if (!userGoal) {
+                showAlert('Por favor, ingresá tu objetivo.');
+                return;
+            }
+
+            geminiLoader.style.display = 'block';
+            routineResult.innerHTML = '';
+            generateBtn.disabled = true;
+
+            const apiKey = "AIzaSyBP8szN5z4isGi_F1DWuwKQ8snyoaxRJAA"; // As provided
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `
+                Actúa como un entrenador personal experto del gimnasio SANDO.
+                Tu tarea es crear un plan de entrenamiento detallado y efectivo de 3 días para un usuario de gimnasio.
+                El plan debe estar basado en el objetivo específico del usuario.
+                El gimnasio está bien equipado con máquinas, pesos libres y área de cardio.
+                
+                **Instrucciones de formato OBLIGATORIAS:**
+                - La respuesta DEBE ser únicamente código HTML.
+                - No incluyas las etiquetas <html>, <head>, o <body>.
+                - Usa <h3> para cada día (Ej: <h3>Día 1: Pecho y Tríceps</h3>).
+                - Usa <h4> para los ejercicios específicos.
+                - Usa <ul> y <li> para detallar las series, repeticiones y un consejo breve para cada ejercicio.
+                - Incluí una breve introducción y una conclusión motivacional al final.
+                - Utiliza un lenguaje cercano, motivador y profesional.
+            `;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Objetivo del usuario: "${userGoal}"` }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error de la API: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    routineResult.innerHTML = candidate.content.parts[0].text;
+                } else {
+                    throw new Error("No se recibió una respuesta válida de la IA.");
+                }
+
+            } catch (error) {
+                console.error("Error al generar la rutina:", error);
+                routineResult.innerHTML = `<p class="text-red-400 text-center">Hubo un error al generar tu rutina. Por favor, intentá de nuevo más tarde o simplificá tu objetivo.</p>`;
+            } finally {
+                geminiLoader.style.display = 'none';
+                generateBtn.disabled = false;
+            }
+        });
+        
+    </script>
+</body>
+</html>
+
